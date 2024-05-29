@@ -4,7 +4,7 @@
 
 #include "Facility.h"
 
-Facility::Facility(Deal* deal, int fin, double montant, float taux, std::string *devises, Lender *lenders) {
+Facility::Facility(Deal* deal, int fin, double montant, float taux, std::string devises, Lender *lenders[6], int size) {
     this->deal = deal;
     this->amount = montant;
     this->devises = devises;
@@ -13,6 +13,9 @@ Facility::Facility(Deal* deal, int fin, double montant, float taux, std::string 
     this->interest = 0;
     this->start = Date().getTime();
     this->amountToRepay = montant;
+    for (int i=0; i<size; i++){
+        this->lenders[i] = lenders[i];
+    }
 }
 
 void Facility::InterstCalculation() {
@@ -25,3 +28,8 @@ void Facility::applyRepay(double amount) {
     this->amountToRepay = this->amountToRepay - toRepayLoan;
     this->amount = this->amount - toRepayInterest;
 }
+
+float Facility::getRate() {
+    return rate;
+}
+

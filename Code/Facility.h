@@ -14,13 +14,14 @@ private:
     double amountToRepay;
     double interest;
     float rate;
-    std::string* devises;
-    Lender* lenders;
+    std::string devises;
+    Lender* lenders[6];
     Deal* deal;
 public:
-    Facility(Deal* deal, int fin, double montant, float taux, std::string* devises, Lender* lenders);
+    Facility(Deal* deal, int fin, double montant, float taux, std::string devises, Lender* lenders[6], int size);
     void InterstCalculation();
     void applyRepay(double amount);
+    float getRate();
 };
 
 
