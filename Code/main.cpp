@@ -18,10 +18,18 @@ int main() {
     Lender* lendersD1F1[1] = {l1};
     a->setPoolForNextFacility(lendersD1F1, 1);
 
-    Facility* f1d1 = a->UnlockMoney(d1, 20, "USD - EUR", 2, 0.1);
+    Facility* f1d1;
+    try {
+        Facility* f1d1 = a->UnlockMoney(d1, 120, "USD - EUR", 2, 0.1);
+    }
+    catch(int){
+        std::cout << "Montant débloquer supérieur au montant restant à débloquer pour le deal" << std::endl;
+    }
+
+    f1d1 = a->UnlockMoney(d1, 20, "USD - EUR", 2, 0.1);
 
     std::cout << d1->toString() << std::endl;
-    for (int i=0; i<sizeof(lendersD1); i++){
+    for (int i=0; i<3; i++){
         std::cout << d1->getPool()[i]->getName() << std::endl;
     }
     std::cout << f1d1->getRate() << std::endl;
