@@ -12,7 +12,7 @@ Facility::Facility(Deal* deal, int fin, double montant, float taux, std::string 
     this->rate = taux;
     this->interest = 0;
     this->start = Date().getTime();
-    this->amountToRepay = montant;
+    this->amountToDistribute = montant;
 }
 
 void Facility::InterstCalculation() {

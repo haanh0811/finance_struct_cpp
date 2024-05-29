@@ -11,7 +11,7 @@ private:
     int start;
     int end;
     double amount;
-    double amountToRepay;
+    double amountToDistribute;
     double interest;
     float rate;
     std::string* devises;
