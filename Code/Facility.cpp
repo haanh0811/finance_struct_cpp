@@ -18,6 +18,7 @@ Facility::Facility(Deal* deal, int fin, double montant, float taux, std::string 
 void Facility::InterstCalculation() {
     this->interest = this->interest * (this->amountToRepay + this->interest) * this->rate;
 }
+
 void Facility::applyRepay(double amount) {
     double toRepayInterest = amount * 0.2;
     double toRepayLoan = amount * 0.8;

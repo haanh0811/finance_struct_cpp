@@ -11,7 +11,7 @@ class Deal {
 private:
     std::string numeroContrat;
     std::string agent;
-    Lender* pool;
+    Lender* pool[5];
     std::string borrower;
     double montantProjet;
     double montantADebloquer;
@@ -20,7 +20,7 @@ private:
     int finContrat;
     std::string status;
 public:
-    Deal(std::string numContrat, std::string agentName, Lender* b, std::string borrowerName, double montant, std::string devise, int signature, int fin);
+    Deal(std::string numContrat, std::string agentName, Lender* b[5], std::string borrowerName, double montant, std::string devise, int signature, int fin);
 
 };
 

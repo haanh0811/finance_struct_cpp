@@ -9,10 +9,15 @@
 
 
 class Agent : public Lender{
+private:
+    Lender* futurePool[5];
+
 public:
     Agent(std::string name);
-    Deal* createDeal(Lender* b, std::string borrowerName, std::string numeroContrat, double montant, std::string devise, int fin);
+    Deal* createDeal(std::string borrowerName, double montant, std::string devise, int fin);
     Facility* UnlockMoney(Deal* d, Lender* b, double amount, std::string* devises, int endDate, float rate);
+    Lender** getFuturePool();
+    void setFuturePool(Lender* lenders[5]);
 };
 
 
