@@ -21,6 +21,28 @@ private:
     std::string status;
 public:
     Deal(std::string numContrat, std::string agentName, Lender* b[5], std::string borrowerName, double montant, std::string devise, int signature, int fin);
+    std::string toString();
+    int getFinContrat();
+    int getSignatureContrat();
+    double getMontantADebloquer();
+    double getMontantProjet();
+    std::string getStatus();
+    std::string getDevise();
+    std::string getAgent();
+    std::string getNumeroContrat();
+    std::string getBorrower();
+    Lender** getPool();
+
+    void setFinContrat(int fin);
+    void setSignatureContrat(int signature);
+    void setMontantADebloquer(double montant);
+    void setMontantProjet(double montant);
+    void setStatus(std::string& newStatus);
+    void setDevise(std::string& newDevise);
+    void setAgent(std::string& agentName);
+    void setNumeroContrat(std::string& numContrat);
+    void setBorrower(std::string& borrowerName);
+    void setPool(Lender* b[5]);
 
 };
 
