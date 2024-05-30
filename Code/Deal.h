@@ -23,7 +23,7 @@ private:
     std::string status;
     
     //3 tranches sont associés à 1 deal
-    std::vector<Facility*> facilities;
+    Facility* facilities[3];
     //Ptf global pour accumuler les intérêtes et remboursements
     Portfolio *ptf;
 public:

@@ -29,7 +29,7 @@ std::string Deal::getDevise()  { return devise; }
 std::string Deal::getAgent()  { return agent; }
 std::string Deal::getNumeroContrat()  { return numeroContrat; }
 std::string Deal::getBorrower()  { return borrower; }
-Lender** Deal::getPool() { return pool.data(); }
+Lender** Deal::getPool() { return pool; }
 
 
 void Deal::setFinContrat(int fin) { finContrat = fin; }
@@ -42,9 +42,8 @@ void Deal::setAgent(std::string& agentName) { agent = agentName; }
 void Deal::setNumeroContrat(std::string& numContrat) { numeroContrat = numContrat; }
 void Deal::setBorrower(std::string& borrowerName) { borrower = borrowerName; }
 void Deal::setPool(Lender* b[5], int size=5) {
-    pool.clear();
     for (int i = 0; i < size; ++i) {
-        pool.push_back(b[i]);
+        pool[i] = b[i];
     }
 }
 
