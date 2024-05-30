@@ -113,3 +113,10 @@ int Facility::getSize() {
 void Facility::setSize(int size) {
     Facility::size = size;
 }
+
+void Facility::repay(double d) {
+    double interest = d * (1 - 1 / pow(1 + rate, end - start));
+    for (int i=0; i<size; i++){
+        lenders[i]->addInterest(interest * proportions[i]);
+    }
+}

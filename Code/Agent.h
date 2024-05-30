@@ -24,6 +24,7 @@ public:
     void setFuturePool(Lender* lenders[5], int size);
     Lender** getPoolForNextFacility();
     void setPoolForNextFacility(Lender* lenders[5], float proportions[5], int size);
+    void repayFacility(Facility* f, double sum);
 };
 
 

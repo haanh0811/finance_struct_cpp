@@ -55,9 +55,9 @@ int main() {
 
     std::cout << std::endl << "Facility 3" << std::endl;
     Lender* lendersD1F3[1] = {l2};
-    float proportionsD1F3[1] = {0.1};
+    float proportionsD1F3[1] = {0.5};
     a->setPoolForNextFacility(lendersD1F3, proportionsD1F3,1);
-    Facility* f3d1 = a->UnlockMoney(d1, 20, "SGD", 2,3, 0.2);
+    Facility* f3d1 = a->UnlockMoney(d1, 10, "SGD", 2,3, 0.2);
     std::cout << "D1 - Montant à débloquer:" << d1->getAmountToUnlock() << std::endl;
     std::cout << "Intérêt:" << f3d1->getInterestAmount() << std::endl;
     std::cout << "Number of lenders:" <<  f3d1->getSize() << std::endl;
@@ -65,6 +65,11 @@ int main() {
         std::cout << f3d1->getLenders()[i]->getName() << std::endl;
         std::cout << f3d1->getProportions()[i]<< std::endl;
     }
+
+    std::cout << std::endl << "Test " << std::endl;
+    b->repay(f3d1, a, 6);
+    b->repay(f3d1, a, 6);
+    std::cout << l2->getPortfolio()->getAmount() << std::endl;
 
 
     std::cout << "End Deal 1" << std::endl;

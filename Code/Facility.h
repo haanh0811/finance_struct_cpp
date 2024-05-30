@@ -44,6 +44,8 @@ public:
     void setDeal(Deal *deal);
     int getSize();
     void setSize(int size);
+
+    void repay(double d);
 };
 
 

@@ -53,3 +53,7 @@ void Agent::setPoolForNextFacility(Lender **lenders, float proportions[5], int s
     sizeNextFacilityPool = size+1;
 }
 
+void Agent::repayFacility(Facility* f, double sum) {
+    f->repay(sum);
+}
+

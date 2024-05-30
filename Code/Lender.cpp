@@ -9,3 +9,11 @@ Lender::Lender(std::string name) {
     portfolio = new Portfolio();
 }
 
+void Lender::addInterest(double d) {
+    portfolio->add(d);
+}
+
+Portfolio *Lender::getPortfolio() {
+    return portfolio;
+}
+

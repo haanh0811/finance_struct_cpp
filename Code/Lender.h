@@ -16,6 +16,8 @@ private:
 public:
     Lender(std::string name);
     Portfolio* getPortfolio();
+
+    void addInterest(double d);
 };
 
 
