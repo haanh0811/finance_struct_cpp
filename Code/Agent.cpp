@@ -11,11 +11,11 @@ Deal* Agent::createDeal(std::string borrowerName, double montant, std::string de
 }
 
 Facility* Agent::UnlockMoney(Deal* d, double amount, std::string devises, int endDate, float rate) {
-    if (amount > d->getMontantADebloquer()){
+    if (amount > d->getAmountToUnlock()){
         throw 1;
     }
     Facility* f =  new Facility(d, endDate, amount, rate, devises, poolForNextFacility, sizeNextFacilityPool);
-    d->setMontantADebloquer(d->getMontantADebloquer() - amount);
+    d->setAmountToUnlock(d->getAmountToUnlock() - amount);
     return f;
 }
 

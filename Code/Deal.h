@@ -13,8 +13,9 @@ private:
     std::string agent;
     Lender* pool[5];
     std::string borrower;
-    double montantProjet;
-    double montantADebloquer;
+    double amount;
+    double amountToUnlock;
+    double amountToRepay;
     std::string devise;
     int signatureContrat;
     int finContrat;
@@ -24,8 +25,9 @@ public:
     std::string toString();
     int getFinContrat();
     int getSignatureContrat();
-    double getMontantADebloquer();
-    double getMontantProjet();
+    double getAmountToUnlock();
+    double getAmountToRepay();
+    double getAmount();
     std::string getStatus();
     std::string getDevise();
     std::string getAgent();
@@ -35,8 +37,9 @@ public:
 
     void setFinContrat(int fin);
     void setSignatureContrat(int signature);
-    void setMontantADebloquer(double montant);
-    void setMontantProjet(double montant);
+    void setAmountToUnlock(double montant);
+    void setAmountToRepay(double montant);
+    void setAmount(double montant);
     void setStatus(std::string& newStatus);
     void setDevise(std::string& newDevise);
     void setAgent(std::string& agentName);
