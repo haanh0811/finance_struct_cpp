@@ -20,4 +20,6 @@ add_executable(Projet main.cpp
         Date.cpp
         Portfolio.cpp
         Portfolio.h
+        Part.cpp
+        Part.h
 )

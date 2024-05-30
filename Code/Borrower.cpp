@@ -10,6 +10,6 @@ Deal* Borrower::requestDeal(Agent* a, double d, int start, int fin) {
     return a->createDeal(this->getName(), d, devise, start, fin);
 }
 
-void Borrower::repay(Facility* f, Agent* a, double amount) {
-    return a->repayFacility(f, amount);
+Part* Borrower::repay(Deal* d, Agent* a, double amount, int indexFacility) {
+    return a->repayFacility(d, amount, indexFacility);
 }

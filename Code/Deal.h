@@ -5,6 +5,7 @@
 #include <string>
 #include "Date.h"
 #include "Lender.h"
+#include "Facility.h"
 
 
 class Deal {
@@ -20,13 +21,14 @@ private:
     int signatureContrat;
     int finContrat;
     std::string status;
+    Facility* facilities[5];
+    int facilitiesSize;
 public:
     Deal(std::string numContrat, std::string agentName, Lender* b[5], std::string borrowerName, double montant, std::string devise, int signature, int fin);
     std::string toString();
     int getFinContrat();
     int getSignatureContrat();
     double getAmountToUnlock();
-    double getAmountToRepay();
     double getAmount();
     std::string getStatus();
     std::string getDevise();
@@ -34,6 +36,8 @@ public:
     std::string getNumeroContrat();
     std::string getBorrower();
     Lender** getPool();
+    Facility** getFacilities();
+
 
     void setFinContrat(int fin);
     void setSignatureContrat(int signature);
@@ -47,6 +51,11 @@ public:
     void setBorrower(std::string& borrowerName);
     void setPool(Lender* b[5]);
 
+    Part* repay(double d, int i);
+
+    Facility *
+    createFacility(int i, int i1, double d, float d1, std::string basicString, Lender *pLender[6], float pDouble[6],
+                   int i2);
 };
 
 

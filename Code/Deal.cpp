@@ -1,4 +1,5 @@
 #include "Deal.h"
+#include "Facility.h"
 
 Deal::Deal(std::string numContrat, std::string agentName, Lender* b[5], std::string borrowerName, double montant,
            std::string devise, int signature, int fin) {
@@ -14,12 +15,12 @@ Deal::Deal(std::string numContrat, std::string agentName, Lender* b[5], std::str
     signatureContrat = signature;
     finContrat = fin;
     status = "Closed";
+    facilitiesSize = 0;
 }
 
 int Deal::getFinContrat() { return finContrat; }
 int Deal::getSignatureContrat()  { return signatureContrat; }
 double Deal::getAmountToUnlock()  { return amountToUnlock; }
-double Deal::getAmountToRepay()  { return amountToRepay; }
 double Deal::getAmount() { return amount; }
 std::string Deal::getStatus()  { return status; }
 std::string Deal::getDevise()  { return devise; }
@@ -47,4 +48,20 @@ void Deal::setPool(Lender* b[5]) {
 
 std::string Deal::toString(){
     return numeroContrat + " "  + agent + " " + borrower;
+}
+
+Part* Deal::repay(double d, int i) {
+    return facilities[i]->repay(d);
+}
+
+Facility * Deal::createFacility(int startDate, int endDate, double sum, float rate, std::string devises, Lender **poolForNextFacility, float *futureProportions,
+                     int sizeNextFacilityPool) {
+    amountToUnlock -= sum;
+    facilities[facilitiesSize] = new Facility(startDate, endDate, sum, rate, devises, poolForNextFacility, futureProportions, sizeNextFacilityPool);
+    facilitiesSize++;
+    return facilities[facilitiesSize];
+}
+
+Facility **Deal::getFacilities() {
+    return facilities;
 }

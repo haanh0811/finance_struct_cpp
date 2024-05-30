@@ -4,16 +4,14 @@
 
 #include "Facility.h"
 
-Facility::Facility(Deal* deal, int start, int fin, double montant, float taux, std::string devises, Lender *lenders[6], float proportions[6], int size) {
+Facility::Facility(int start, int fin, double montant, float taux, std::string devises, Lender *lenders[6], float proportions[6], int size) {
     this->start = start;
-    this->deal = deal;
+    this->partsNb = 0;
     this->lentAmount = montant;
     this->devises = devises;
     this->end = fin;
     this->rate = taux;
-    this->interestAmount = pow(rate, (end-start)) * lentAmount ;
-    this->interestAmountToRepay = pow(rate, (end-start)) * lentAmount ;
-    this->lentAmountToRepay = montant;
+    this->stillToRepay = pow(1+rate, (end-start)) * lentAmount;
     for (int i=0; i<size; i++){
         this->proportions[i] = proportions[i];
     }
@@ -23,16 +21,6 @@ Facility::Facility(Deal* deal, int start, int fin, double montant, float taux, s
     this->size = size;
 }
 
-void Facility::InterstCalculation() {
-    this->interestAmount = this->interestAmount * (this->lentAmountToRepay + this->interestAmount) * this->rate;
-}
-
-void Facility::applyRepay(double amount) {
-    double toRepayInterest = amount * 0.2;
-    double toRepayLoan = amount * 0.8;
-    this->lentAmountToRepay = this->lentAmountToRepay - toRepayLoan;
-    this->lentAmount = this->lentAmount - toRepayInterest;
-}
 
 float Facility::getRate() {
     return rate;
@@ -62,22 +50,6 @@ void Facility::setLentAmount(double amount) {
     Facility::lentAmount = amount;
 }
 
-double Facility::getAmountToRepay() {
-    return lentAmountToRepay;
-}
-
-void Facility::setAmountToRepay(double amountToRepay) {
-    Facility::lentAmountToRepay = amountToRepay;
-}
-
-double Facility::getInterestAmount() {
-    return interestAmount;
-}
-
-void Facility::setInterestAmount(double interest) {
-    Facility::interestAmount = interest;
-}
-
 void Facility::setRate(float rate) {
     Facility::rate = rate;
 }
@@ -98,14 +70,6 @@ float* Facility::getProportions() {
     return proportions;
 }
 
-Deal *Facility::getDeal() {
-    return deal;
-}
-
-void Facility::setDeal(Deal *deal) {
-    Facility::deal = deal;
-}
-
 int Facility::getSize() {
     return size;
 }
@@ -114,9 +78,21 @@ void Facility::setSize(int size) {
     Facility::size = size;
 }
 
-void Facility::repay(double d) {
+Part* Facility::repay(double d) {
+    if (d > stillToRepay){
+        throw 1;
+    }
     double interest = d * (1 - 1 / pow(1 + rate, end - start));
     for (int i=0; i<size; i++){
         lenders[i]->addInterest(interest * proportions[i]);
     }
+    stillToRepay -= d;
+    int index = partsNb;
+    parts[index]  = new Part(d);
+    partsNb++;
+    return parts[index];
+}
+
+double Facility::getStillToRepay() {
+    return stillToRepay;
 }
