@@ -10,16 +10,15 @@
 
 class Deal {
 private:
-    std::string numeroContrat;
+    std::string contractNumber;
     std::string agent;
     Lender* pool[5];
     std::string borrower;
     double amount;
     double amountToUnlock;
-    double amountToRepay;
     std::string devise;
-    int signatureContrat;
-    int finContrat;
+    int contractSignature;
+    int contractEnd;
     std::string status;
     Facility* facilities[5];
     int facilitiesSize;
@@ -33,7 +32,7 @@ public:
     std::string getStatus();
     std::string getDevise();
     std::string getAgent();
-    std::string getNumeroContrat();
+    std::string getContractNumber();
     std::string getBorrower();
     Lender** getPool();
     Facility** getFacilities();
@@ -47,7 +46,6 @@ public:
     void setStatus(std::string& newStatus);
     void setDevise(std::string& newDevise);
     void setAgent(std::string& agentName);
-    void setNumeroContrat(std::string& numContrat);
     void setBorrower(std::string& borrowerName);
     void setPool(Lender* b[5]);
 
@@ -56,6 +54,8 @@ public:
     Facility *
     createFacility(int i, int i1, double d, float d1, std::string basicString, Lender *pLender[6], float pDouble[6],
                    int i2);
+
+    std::string generateContractNumber();
 };
 
 

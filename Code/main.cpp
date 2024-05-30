@@ -15,6 +15,7 @@ int main() {
     Lender* lendersD1[3] = {l1,l2, l3};
     a->setFuturePool(lendersD1, sizeD1);
     Deal* d1 = b->requestDeal(a, 100, 0, 3);
+    std::cout << d1->toString() << std::endl;
     for (int i=0; i<3; i++){
         std::cout << d1->getPool()[i]->getName() << std::endl;
     }

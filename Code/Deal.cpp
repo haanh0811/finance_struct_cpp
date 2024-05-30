@@ -1,9 +1,10 @@
+#include <sstream>
 #include "Deal.h"
 #include "Facility.h"
 
 Deal::Deal(std::string numContrat, std::string agentName, Lender* b[5], std::string borrowerName, double montant,
            std::string devise, int signature, int fin) {
-    numeroContrat = numContrat;
+    contractNumber = generateContractNumber();
     agent = agentName;
     borrower = borrowerName;
     for (int i = 0; i < 5; ++i) {
@@ -12,33 +13,31 @@ Deal::Deal(std::string numContrat, std::string agentName, Lender* b[5], std::str
     amount = montant;
     amountToUnlock = amount;
     devise = devise;
-    signatureContrat = signature;
-    finContrat = fin;
+    contractSignature = signature;
+    contractEnd = fin;
     status = "Active";
     facilitiesSize = 0;
 }
 
-int Deal::getFinContrat() { return finContrat; }
-int Deal::getSignatureContrat()  { return signatureContrat; }
+int Deal::getFinContrat() { return contractEnd; }
+int Deal::getSignatureContrat()  { return contractSignature; }
 double Deal::getAmountToUnlock()  { return amountToUnlock; }
 double Deal::getAmount() { return amount; }
 std::string Deal::getStatus()  { return status; }
 std::string Deal::getDevise()  { return devise; }
 std::string Deal::getAgent()  { return agent; }
-std::string Deal::getNumeroContrat()  { return numeroContrat; }
+std::string Deal::getContractNumber()  { return contractNumber; }
 std::string Deal::getBorrower()  { return borrower; }
 Lender** Deal::getPool() { return pool; }
 
 
-void Deal::setFinContrat(int fin) { finContrat = fin; }
-void Deal::setSignatureContrat(int signature) { signatureContrat = signature; }
+void Deal::setFinContrat(int fin) { contractEnd = fin; }
+void Deal::setSignatureContrat(int signature) { contractSignature = signature; }
 void Deal::setAmountToUnlock(double montant) { amountToUnlock = montant; }
-void Deal::setAmountToRepay(double montant) { amountToRepay = montant; }
 void Deal::setAmount(double montant) { amount = montant; }
 void Deal::setStatus(std::string& newStatus) { status = newStatus; }
 void Deal::setDevise(std::string& newDevise) { devise = newDevise; }
 void Deal::setAgent(std::string& agentName) { agent = agentName; }
-void Deal::setNumeroContrat(std::string& numContrat) { numeroContrat = numContrat; }
 void Deal::setBorrower(std::string& borrowerName) { borrower = borrowerName; }
 void Deal::setPool(Lender* b[5]) {
     for (int i = 0; i < 5; ++i) {
@@ -47,7 +46,7 @@ void Deal::setPool(Lender* b[5]) {
 }
 
 std::string Deal::toString(){
-    return numeroContrat + " "  + agent + " " + borrower;
+    return contractNumber + " " + agent + " " + borrower;
 }
 
 Part* Deal::repay(double d, int i) {
@@ -79,4 +78,14 @@ Facility * Deal::createFacility(int startDate, int endDate, double sum, float ra
 
 Facility **Deal::getFacilities() {
     return facilities;
+}
+
+std::string Deal::generateContractNumber() {
+    char toReturn[4];
+    char letter[] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+    for (int i=0; i<3; i++){
+        toReturn[i] = letter[rand() % 26];
+    }
+    toReturn[3] = (char) ((rand()%10)+'0');
+    return toReturn;
 }
