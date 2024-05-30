@@ -14,7 +14,7 @@ Deal::Deal(std::string numContrat, std::string agentName, Lender* b[5], std::str
     devise = devise;
     signatureContrat = signature;
     finContrat = fin;
-    status = "Closed";
+    status = "Active";
     facilitiesSize = 0;
 }
 
@@ -51,12 +51,27 @@ std::string Deal::toString(){
 }
 
 Part* Deal::repay(double d, int i) {
-    return facilities[i]->repay(d);
+    Part* p = facilities[i]->repay(d);
+    if (facilities[i]->getStillToRepay() == 0){
+        bool isTrue = true;
+        for (int j=0; j<facilitiesSize; j++){
+            if (facilities[j] != 0){
+                isTrue = false;
+            }
+        }
+        if (isTrue){
+            status = "Terminated";
+        }
+    }
+    return p;
 }
 
 Facility * Deal::createFacility(int startDate, int endDate, double sum, float rate, std::string devises, Lender **poolForNextFacility, float *futureProportions,
                      int sizeNextFacilityPool) {
     amountToUnlock -= sum;
+    if(amountToUnlock == 0){
+        status = "Closed";
+    }
     facilities[facilitiesSize] = new Facility(startDate, endDate, sum, rate, devises, poolForNextFacility, futureProportions, sizeNextFacilityPool);
     facilitiesSize++;
     return facilities[facilitiesSize];
