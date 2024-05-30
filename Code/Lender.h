@@ -1,6 +1,3 @@
-//
-// Created by Julien on 28/05/2024.
-//
 
 #ifndef PROJET_LENDER_H
 #define PROJET_LENDER_H
@@ -11,11 +8,15 @@
 
 class Lender : public Entreprise{
 private:
+    double totalLent;
     Portfolio* portfolio;
 
 public:
     Lender(std::string name);
+    ~Lender();
     Portfolio* getPortfolio();
+    void addTotalLent(double amount);
+    double getTotalLent() const;
 };
 
 

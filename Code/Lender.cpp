@@ -6,6 +6,22 @@
 
 Lender::Lender(std::string name) {
     setName(name);
-    portfolio = new Portfolio();
+    totalLent = 0.0;
+    portfolio = new Portfolio() ;
+}
+Lender::~Lender() {
+    delete portfolio;
+}
+Portfolio* Lender::getPortfolio() {
+    return portfolio;
+}
+
+
+void Lender::addTotalLent(double amount) {
+    totalLent += amount;
+}
+
+double Lender::getTotalLent() const {
+    return totalLent;
 }
 

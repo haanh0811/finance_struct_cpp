@@ -8,11 +8,14 @@
 
 class Portfolio {
 private:
-    double amount;
+    double repayment;
+    double interest;
 public:
     Portfolio();
-    double getAmount();
-    void add(double d);
+    void addInterest(double amount);
+    void addRepayment(double amount);
+    double getRepayment();
+    double getInterest();
 };
 
 

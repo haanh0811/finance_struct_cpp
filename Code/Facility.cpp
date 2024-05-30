@@ -4,32 +4,63 @@
 
 #include "Facility.h"
 
-Facility::Facility(Deal* deal, int fin, double montant, float taux, std::string devises, Lender *lenders[6], int size) {
-    this->deal = deal;
-    this->amount = montant;
-    this->devises = devises;
-    this->end = fin;
-    this->rate = taux;
-    this->interest = 0;
-    this->start = Date().getTime();
-    this->amountToRepay = montant;
-    for (int i=0; i<size; i++){
-        this->lenders[i] = lenders[i];
+Facility::Facility(const std::string& name, double size, double interestRate, int priority){
+    this->name = name;
+    this->size = size;
+    this->interestRate = interestRate;
+    remainingAmount = size;
+    this->priority = priority;
+    totalInterest = 0;
+    totalRepayment = 0;
+
+}
+
+void Facility::addLender(Lender* lenders[], double amounts[], int lenderCount) {
+    for (int i = 0; i < lenderCount; ++i) {
+        this->lenders.push_back(std::make_pair(lenders[i], amounts[i]));
+        lenders[i]->addTotalLent(amounts[i]);
     }
 }
 
-void Facility::InterstCalculation() {
-    this->interest = this->interest * (this->amountToRepay + this->interest) * this->rate;
+void Facility::addInterest(double amount) {
+    totalInterest += amount;
+    for (const auto& lenderPair : lenders) {
+        Lender* lender = lenderPair.first;
+        double lenderContribution = lenderPair.second;
+        double lenderInterest = (amount * lenderContribution) / size;
+        lender->getPortfolio()->addInterest(lenderInterest);
+    }
 }
 
-void Facility::applyRepay(double amount) {
-    double toRepayInterest = amount * 0.2;
-    double toRepayLoan = amount * 0.8;
-    this->amountToRepay = this->amountToRepay - toRepayLoan;
-    this->amount = this->amount - toRepayInterest;
+void Facility::addRepayment(double amount) {
+    totalRepayment += amount;
+    remainingAmount -= amount;
+    for (const auto& lenderPair : lenders) {
+        Lender* lender = lenderPair.first;
+        double lenderContribution = lenderPair.second;
+        double lenderRepayment = (amount * lenderContribution) / size;
+        lender->getPortfolio()->addRepayment(lenderRepayment);
+    }
+}
+double Facility::getRemainingAmount() const {
+    return remainingAmount;
 }
 
-float Facility::getRate() {
-    return rate;
+double Facility::getTotalInterest() const {
+    return totalInterest;
 }
+
+double Facility::getTotalRepayment() const {
+    return totalRepayment;
+}
+
+int Facility::getPriority() const {
+    return priority;
+}
+
+double Facility::calculateInterest(int period) const {
+    return (size * interestRate * period) / 100.0;
+}
+
+
 

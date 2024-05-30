@@ -5,15 +5,21 @@
 #include "Portfolio.h"
 
 Portfolio::Portfolio() {
-    amount = 0;
+    interest = 0.0 ;
+    repayment = 0.0;
 }
 
-double Portfolio::getAmount() {
-    return amount;
+void Portfolio::addInterest(double amount) {
+    interest += amount;
 }
 
-void Portfolio::add(double d) {
-    amount = amount + d;
+void Portfolio::addRepayment(double amount){
+      repayment += amount;
 }
 
-
+double Portfolio::getRepayment(){
+    return repayment;
+}
+double Portfolio::getInterest(){   
+    return interest; 
+}

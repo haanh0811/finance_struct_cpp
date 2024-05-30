@@ -5,7 +5,9 @@
 #include <string>
 #include "Date.h"
 #include "Lender.h"
-
+#include "Portfolio.h"
+#include "Facility.h"
+#include <vector>
 
 class Deal {
 private:
@@ -19,8 +21,14 @@ private:
     int signatureContrat;
     int finContrat;
     std::string status;
+    
+    //3 tranches sont associés à 1 deal
+    std::vector<Facility*> facilities;
+    //Ptf global pour accumuler les intérêtes et remboursements
+    Portfolio *ptf;
 public:
-    Deal(std::string numContrat, std::string agentName, Lender* b[5], std::string borrowerName, double montant, std::string devise, int signature, int fin);
+    Deal(const std::string& numContrat, const std::string& agentName, Lender* b[5], const std::string& borrowerName, double montant, const std::string& devise, int signature, int fin, Facility* f[3], Portfolio* p);
+    ~Deal();
     std::string toString();
     int getFinContrat();
     int getSignatureContrat();
@@ -42,8 +50,13 @@ public:
     void setAgent(std::string& agentName);
     void setNumeroContrat(std::string& numContrat);
     void setBorrower(std::string& borrowerName);
-    void setPool(Lender* b[5]);
-
+    void setPool(Lender* b[5], int size);
+    void setFacility(Facility* f[3], int size);
+    void distribute_payments(double repaymentAmount, int period);
+    double calcul_total_i();
+    double calcul_total_repayments();
+    double calculTotalInterests() const;
+    double calculTotalRepayments() const;
 };
 
 
