@@ -39,6 +39,6 @@ void Agent::setPoolForNextFacility(Lender **lenders, int size) {
     for (int i = 0; i < size; ++i) {
         poolForNextFacility[i+1] = lenders[i];
     }
-    sizeNextFacilityPool = size;
+    sizeNextFacilityPool = size+1;
 }
 
