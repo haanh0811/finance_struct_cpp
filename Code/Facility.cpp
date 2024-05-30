@@ -4,15 +4,17 @@
 
 #include "Facility.h"
 
-Facility::Facility(Deal* deal, int fin, double montant, float taux, std::string devises, Lender *lenders[6], int size) {
+Facility::Facility(Deal* deal, int start, int fin, double montant, float taux, std::string devises, Lender *lenders[6], int size) {
+    this->start = start;
     this->deal = deal;
-    this->amount = montant;
+    this->lentAmount = montant;
     this->devises = devises;
     this->end = fin;
     this->rate = taux;
-    this->interest = 0;
+    this->interestAmount = pow(rate, (end-start)) * lentAmount ;
+    this->lentInterestAmountToRepay = pow(rate, (end-start)) * lentAmount ;
     this->start = Date().getTime();
-    this->amountToRepay = montant;
+    this->lentAmountToRepay = montant;
     for (int i=0; i<size; i++){
         this->lenders[i] = lenders[i];
     }
@@ -20,14 +22,14 @@ Facility::Facility(Deal* deal, int fin, double montant, float taux, std::string 
 }
 
 void Facility::InterstCalculation() {
-    this->interest = this->interest * (this->amountToRepay + this->interest) * this->rate;
+    this->interestAmount = this->interestAmount * (this->lentAmountToRepay + this->interestAmount) * this->rate;
 }
 
 void Facility::applyRepay(double amount) {
     double toRepayInterest = amount * 0.2;
     double toRepayLoan = amount * 0.8;
-    this->amountToRepay = this->amountToRepay - toRepayLoan;
-    this->amount = this->amount - toRepayInterest;
+    this->lentAmountToRepay = this->lentAmountToRepay - toRepayLoan;
+    this->lentAmount = this->lentAmount - toRepayInterest;
 }
 
 float Facility::getRate() {
@@ -50,28 +52,28 @@ void Facility::setStart(int start) {
     Facility::start = start;
 }
 
-double Facility::getAmount() {
-    return amount;
+double Facility::getLentAmount() {
+    return lentAmount;
 }
 
-void Facility::setAmount(double amount) {
-    Facility::amount = amount;
+void Facility::setLentAmount(double amount) {
+    Facility::lentAmount = amount;
 }
 
 double Facility::getAmountToRepay() {
-    return amountToRepay;
+    return lentAmountToRepay;
 }
 
 void Facility::setAmountToRepay(double amountToRepay) {
-    Facility::amountToRepay = amountToRepay;
+    Facility::lentAmountToRepay = amountToRepay;
 }
 
-double Facility::getInterest() {
-    return interest;
+double Facility::getInterestAmount() {
+    return interestAmount;
 }
 
-void Facility::setInterest(double interest) {
-    Facility::interest = interest;
+void Facility::setInterestAmount(double interest) {
+    Facility::interestAmount = interest;
 }
 
 void Facility::setRate(float rate) {

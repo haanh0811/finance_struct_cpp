@@ -10,16 +10,17 @@ class Facility {
 private:
     int start;
     int end;
-    double amount;
-    double amountToRepay;
-    double interest;
+    double lentAmount;
+    double lentAmountToRepay;
+    double lentInterestAmountToRepay;
+    double interestAmount;
     float rate;
     std::string devises;
     Lender* lenders[6];
     Deal* deal;
     int size;
 public:
-    Facility(Deal* deal, int fin, double montant, float taux, std::string devises, Lender* lenders[6], int size);
+    Facility(Deal* deal,int start, int fin, double montant, float taux, std::string devises, Lender* lenders[6], int size);
     void InterstCalculation();
     void applyRepay(double amount);
     float getRate();
@@ -27,12 +28,12 @@ public:
     void setAnEnd(int anEnd);
     int getStart();
     void setStart(int start);
-    double getAmount() ;
-    void setAmount(double amount);
+    double getLentAmount() ;
+    void setLentAmount(double amount);
     double getAmountToRepay() ;
     void setAmountToRepay(double amountToRepay);
-    double getInterest();
-    void setInterest(double interest);
+    double getInterestAmount();
+    void setInterestAmount(double interest);
     void setRate(float rate);
     std::string getDevises();
     void setDevises(std::string devises);

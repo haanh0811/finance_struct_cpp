@@ -5,16 +5,16 @@ Agent::Agent(std::string name) : Lender(name) {
 
 }
 
-Deal* Agent::createDeal(std::string borrowerName, double montant, std::string devise, int fin) {
+Deal* Agent::createDeal(std::string borrowerName, double montant, std::string devise, int start, int end) {
     std::string numeroContrat;
-    return new Deal(numeroContrat, this->getName(), futurePool, borrowerName,  montant, devise, Date().getTime(), fin);
+    return new Deal(numeroContrat, this->getName(), futurePool, borrowerName,  montant, devise, start, end);
 }
 
-Facility* Agent::UnlockMoney(Deal* d, double amount, std::string devises, int endDate, float rate) {
-    if (amount > d->getAmountToUnlock()){
+Facility* Agent::UnlockMoney(Deal* d, double amount, std::string devises,int startDate, int endDate, float rate) {
+    if (amount > d->getAmountToUnlock() || startDate < d->getSignatureContrat() || endDate > d->getFinContrat()){
         throw 1;
     }
-    Facility* f =  new Facility(d, endDate, amount, rate, devises, poolForNextFacility, sizeNextFacilityPool);
+    Facility* f =  new Facility(d, startDate, endDate, amount, rate, devises, poolForNextFacility, sizeNextFacilityPool);
     d->setAmountToUnlock(d->getAmountToUnlock() - amount);
     return f;
 }

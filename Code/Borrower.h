@@ -10,7 +10,7 @@
 class Borrower : public Entreprise{
 public:
     Borrower(std::string name);
-    Deal* requestDeal(Agent* a, double amount, int fin);
+    Deal* requestDeal(Agent* a, double amount, int start, int end);
     void repay(Deal d, Agent a, double amount);
 };
 
