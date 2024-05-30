@@ -20,18 +20,15 @@ int main() {
     for (int i=0; i<3; i++){
         std::cout << d1->getPool()[i]->getName() << std::endl;
     }
+    std::cout << d1->toString() << std::endl;
 
     std::cout << std::endl << "Facility 1" << std::endl;
     Lender* lendersD1F1[1] = {l1};
     a->setPoolForNextFacility(lendersD1F1, 1);
     Facility* f1d1;
     f1d1 = a->UnlockMoney(d1, 20, "USD - EUR", 2, 0.1);
-    std::cout << d1->toString() << std::endl;
     std::cout << "D1 - Montant à débloquer:" << d1->getAmountToUnlock() << std::endl;
-    for (int i=0; i<3; i++){
-        std::cout << d1->getPool()[i]->getName() << std::endl;
-    }
-    std::cout << f1d1->getRate() << std::endl;
+    std::cout << "Number of lenders:" <<  f1d1->getSize() << std::endl;
     for(int i = 0; i<f1d1->getSize(); i++){
         std::cout << f1d1->getLenders()[i]->getName() << std::endl;
     }
