@@ -4,7 +4,7 @@
 
 #include "Facility.h"
 
-Facility::Facility(Deal* deal, int start, int fin, double montant, float taux, std::string devises, Lender *lenders[6], int size) {
+Facility::Facility(Deal* deal, int start, int fin, double montant, float taux, std::string devises, Lender *lenders[6], float proportions[6], int size) {
     this->start = start;
     this->deal = deal;
     this->lentAmount = montant;
@@ -12,9 +12,11 @@ Facility::Facility(Deal* deal, int start, int fin, double montant, float taux, s
     this->end = fin;
     this->rate = taux;
     this->interestAmount = pow(rate, (end-start)) * lentAmount ;
-    this->lentInterestAmountToRepay = pow(rate, (end-start)) * lentAmount ;
-    this->start = Date().getTime();
+    this->interestAmountToRepay = pow(rate, (end-start)) * lentAmount ;
     this->lentAmountToRepay = montant;
+    for (int i=0; i<size; i++){
+        this->proportions[i] = proportions[i];
+    }
     for (int i=0; i<size; i++){
         this->lenders[i] = lenders[i];
     }
@@ -92,6 +94,10 @@ Lender** Facility::getLenders()  {
     return lenders;
 }
 
+float* Facility::getProportions() {
+    return proportions;
+}
+
 Deal *Facility::getDeal() {
     return deal;
 }
@@ -107,4 +113,3 @@ int Facility::getSize() {
 void Facility::setSize(int size) {
     Facility::size = size;
 }
-

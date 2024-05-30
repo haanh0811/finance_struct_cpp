@@ -12,15 +12,16 @@ private:
     int end;
     double lentAmount;
     double lentAmountToRepay;
-    double lentInterestAmountToRepay;
+    double interestAmountToRepay;
     double interestAmount;
     float rate;
     std::string devises;
     Lender* lenders[6];
+    float proportions[6];
     Deal* deal;
     int size;
 public:
-    Facility(Deal* deal,int start, int fin, double montant, float taux, std::string devises, Lender* lenders[6], int size);
+    Facility(Deal* deal,int start, int fin, double montant, float taux, std::string devises, Lender* lenders[6], float proportions[6],int size);
     void InterstCalculation();
     void applyRepay(double amount);
     float getRate();
@@ -38,6 +39,7 @@ public:
     std::string getDevises();
     void setDevises(std::string devises);
     Lender** getLenders();
+    float* getProportions();
     Deal *getDeal() ;
     void setDeal(Deal *deal);
     int getSize();

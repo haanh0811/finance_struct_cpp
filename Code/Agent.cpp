@@ -14,7 +14,7 @@ Facility* Agent::UnlockMoney(Deal* d, double amount, std::string devises,int sta
     if (amount > d->getAmountToUnlock() || startDate < d->getSignatureContrat() || endDate > d->getFinContrat()){
         throw 1;
     }
-    Facility* f =  new Facility(d, startDate, endDate, amount, rate, devises, poolForNextFacility, sizeNextFacilityPool);
+    Facility* f =  new Facility(d, startDate, endDate, amount, rate, devises, poolForNextFacility, futureProportions, sizeNextFacilityPool);
     d->setAmountToUnlock(d->getAmountToUnlock() - amount);
     return f;
 }
@@ -34,8 +34,19 @@ Lender** Agent::getPoolForNextFacility() {
     return poolForNextFacility;
 }
 
-void Agent::setPoolForNextFacility(Lender **lenders, int size) {
+void Agent::setPoolForNextFacility(Lender **lenders, float proportions[5], int size) {
+    float sum = 0;
+    for (int i = 0; i < size; ++i) {
+        sum += proportions[i];
+    }
+    if (sum > 1){
+        throw 1;
+    }
     poolForNextFacility[0] = this;
+    futureProportions[0] = 1-sum;
+    for (int i = 0; i < size; ++i) {
+        futureProportions[i+1] = proportions[i];
+    }
     for (int i = 0; i < size; ++i) {
         poolForNextFacility[i+1] = lenders[i];
     }

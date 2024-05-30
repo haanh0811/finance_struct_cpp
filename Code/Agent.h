@@ -12,6 +12,7 @@ class Agent : public Lender{
 private:
     Lender* futurePool[5];
     Lender* poolForNextFacility[6];
+    float futureProportions[6];
     int sizeFuturePool;
     int sizeNextFacilityPool;
 
@@ -22,7 +23,7 @@ public:
     Lender** getFuturePool();
     void setFuturePool(Lender* lenders[5], int size);
     Lender** getPoolForNextFacility();
-    void setPoolForNextFacility(Lender* lenders[5], int size);
+    void setPoolForNextFacility(Lender* lenders[5], float proportions[5], int size);
 };
 
 
