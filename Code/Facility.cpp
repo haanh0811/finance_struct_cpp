@@ -3,6 +3,7 @@
 //
 
 #include "Facility.h"
+#include <cmath>
 
 Facility::Facility(int start, int fin, double montant, float taux, std::string devises, Lender *lenders[6], float proportions[6], int size) {
     this->start = start;
@@ -78,7 +79,7 @@ void Facility::setSize(int size) {
     Facility::size = size;
 }
 
-Part* Facility::repay(double d) {
+Part* Facility::repay(double d,int idxFacility) {
     if (d > stillToRepay){
         throw 1;
     }
@@ -88,7 +89,7 @@ Part* Facility::repay(double d) {
     }
     stillToRepay -= d;
     int index = partsNb;
-    parts[index]  = new Part(d);
+    parts[index]  = new Part(d,idxFacility);
     partsNb++;
     return parts[index];
 }

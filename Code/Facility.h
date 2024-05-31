@@ -37,7 +37,8 @@ public:
     float* getProportions();
     int getSize();
     void setSize(int size);
-    Part* repay(double d);
+    Part* repay(double ,int idxFacility);
+    
 };
 
 

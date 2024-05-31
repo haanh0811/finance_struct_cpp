@@ -29,7 +29,7 @@ std::string Deal::getAgent()  { return agent; }
 std::string Deal::getContractNumber()  { return contractNumber; }
 std::string Deal::getBorrower()  { return borrower; }
 Lender** Deal::getPool() { return pool; }
-
+int Deal::getNumberOfFacilities(){ return facilitiesSize; }
 
 void Deal::setFinContrat(int fin) { contractEnd = fin; }
 void Deal::setSignatureContrat(int signature) { contractSignature = signature; }
@@ -50,7 +50,7 @@ std::string Deal::toString(){
 }
 
 Part* Deal::repay(double d, int i) {
-    Part* p = facilities[i]->repay(d);
+    Part* p = facilities[i]->repay(d,i);
     if (facilities[i]->getStillToRepay() == 0){
         bool isTrue = true;
         for (int j=0; j<facilitiesSize; j++){
