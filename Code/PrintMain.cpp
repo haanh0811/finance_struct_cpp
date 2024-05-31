@@ -1,20 +1,22 @@
 #include <iostream>
 #include <iomanip>
+#include <cmath>
 #include "PrintMain.h"
 
-void printFacilityTable(Deal* deal) {
+double printFacilityTable(Deal* deal) {
     std::cout << std::left << std::setw(10) << "Facility" 
               << std::setw(20) << "Amount to Unlock" 
               << std::setw(30) << "Amount Needed to Repay" 
               << std::setw(50) << "Lenders (Proportions)" << std::endl;
     std::cout << "-------------------------------------------------------------------------------" << std::endl;
-
+    double sumNeededToBeRepaid = 0 ;
     for (int i = 0; i < deal->getNumberOfFacilities(); ++i) {
         Facility* facility = deal->getFacilities()[i];
         std::cout << std::left << std::setw(10) << i + 1
                   << std::setw(20) << facility->getLentAmount();
         std::cout << std::left << std::setw(10) 
                   << std::setw(20) << facility->getStillToRepay();
+        sumNeededToBeRepaid += facility->getStillToRepay();
         for (int j = 0; j < facility->getSize(); ++j) {
             std::cout << facility->getLenders()[j]->getName() << " (" << facility->getProportions()[j] << ")";
             if (j < facility->getSize() - 1) {
@@ -22,7 +24,9 @@ void printFacilityTable(Deal* deal) {
             }
         }
         std::cout << std::endl;
+        
     }
+    return sumNeededToBeRepaid;
 }
 
 
@@ -65,24 +69,24 @@ void printLenderPortfolios(Lender* lenders[], int size) {
     }
 }
 
-void getUserRepaymentInput(float repayments[][2], int &numRepayments, Borrower* borrower, Deal* deal, Agent* agent) {
-    char choice = 'y';
-    while (choice == 'y' || choice == 'Y') {
+void getUserRepaymentInput(float repayments[][2], int &numRepayments, Borrower* borrower, Deal* deal, Agent* agent, double sumNeededToBeRepaid) {
+    double paidAmount = 0;
+    double tolerance = 0.0001;
+    while (std::fabs(paidAmount - sumNeededToBeRepaid) > tolerance ) {
         double amount;
         int indexFacility;
         std::cout << "Enter repayment amount: ";
         std::cin >> amount;
         std::cout << "Enter facility index: ";
         std::cin >> indexFacility;
-
+        paidAmount += amount;
+        std::cout << "Sum cumulé :" <<paidAmount << std::endl;
         Part* part = borrower->repay(deal, agent, amount, indexFacility);
         int facilityIndex = part ? part->getIdxFacility() : 0; 
 
         repayments[numRepayments][0] = amount;
         repayments[numRepayments][1] = facilityIndex;
+        
         numRepayments++;
-
-        std::cout << "Do you want to enter another repayment? (y/n): ";
-        std::cin >> choice;
     }
 }

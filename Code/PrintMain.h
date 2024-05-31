@@ -7,10 +7,10 @@
 #include "Deal.h"
 #include "Portfolio.h"
 
-void printFacilityTable(Deal* deal);
+double printFacilityTable(Deal* deal);
 void printDealDetails(Deal* deal);
 void printLenderPortfolio(Lender* lender);
 void printLenderPortfolios(Lender* lenders[], int size);
 void printRepaymentTable(float repayments[][2], int numRepayments);
-void getUserRepaymentInput(float repayments[][2], int &numRepayments, Borrower* borrower, Deal* deal, Agent* agent);
+void getUserRepaymentInput(float repayments[][2], int &numRepayments, Borrower* borrower, Deal* deal, Agent* agent, double SumNeededToBeRepaid);
 #endif // PRINT_UTILS_H

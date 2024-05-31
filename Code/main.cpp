@@ -45,19 +45,18 @@ int main() {
     a->UnlockMoney(d1, 80, "USD - EUR", 1, 3, 0.1);
     std::cout << "- Facility 3 :" <<  d1->getStatus() <<std::endl;
 
-    std::cout << std::endl << "Facilities Recap Table:" << std::endl;
-    printFacilityTable(d1);
-    
+    std::cout << std::endl << "Facilities Recap Table :" << std::endl;
+    double sumNeededToBeRepaid = printFacilityTable(d1);
+    std::cout << "Sum to be repaid :" <<  sumNeededToBeRepaid <<std::endl;
     
 
     float repayments[MAX_REPAYMENTS][2] = {0};
     int numRepayments = 0;
-    getUserRepaymentInput(repayments, numRepayments, b, d1, a);
-    std::cout << std::endl << "Repayments Recap Table:" << std::endl;
+    getUserRepaymentInput(repayments, numRepayments, b, d1, a, sumNeededToBeRepaid);
+    std::cout << std::endl << "Repayments Recap Table :" << std::endl;
     printRepaymentTable(repayments, numRepayments);
     
-    std::cout << std::endl << "Lender Portfolios" << std::endl;
-    std::cout << "-----------------" << std::endl;
+    std::cout << std::endl << "Lender Portfolios Recap Table : " << std::endl;
     printLenderPortfolios(lendersD1, 3);
 
     return 0;
