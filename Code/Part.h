@@ -1,15 +1,17 @@
+//
+// Created by Julien on 30/05/2024.
+//
+
 #ifndef PROJET_PART_H
 #define PROJET_PART_H
 
 
-#include "Facility.h"
-
 class Part {
 private:
-    Facility facility;
-
+    double repaid;
 public:
-    Part(Facility f);
+    Part(double d);
+    double getRepaid();
 };
 
 

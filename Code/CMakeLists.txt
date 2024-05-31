@@ -17,8 +17,9 @@ add_executable(Projet main.cpp
         Borrower.h
         Facility.cpp
         Facility.h
-        Part.h
         Date.cpp
         Portfolio.cpp
         Portfolio.h
+        Part.cpp
+        Part.h
 )
