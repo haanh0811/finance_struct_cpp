@@ -57,7 +57,7 @@ int main() {
     printRepaymentTable(repayments, numRepayments);
     
     std::cout << std::endl << "Lender Portfolios Recap Table : " << std::endl;
-    printLenderPortfolios(lendersD1, 3);
+    printLenderPortfolios(a,lendersD1, 3);
 
     return 0;
 }

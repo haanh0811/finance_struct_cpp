@@ -59,13 +59,15 @@ void printDealDetails(Deal* deal) {
 
 }
 
-void printLenderPortfolios(Lender* lenders[], int size) {
+void printLenderPortfolios(Agent *a,Lender* lenders[], int size) {
     std::cout << std::left << std::setw(20) << "Lender"
               << std::setw(20) << "Portfolio Amount" << std::endl;
     std::cout << "----------------------------------------" << std::endl;
+    std::cout << std::left << std::setw(20) << a->getName()
+            << std::setw(20) << a->getPortfolio()->getAmount() << std::endl;
     for (int i = 0; i < size; ++i) {
         std::cout << std::left << std::setw(20) << lenders[i]->getName()
-                  << std::setw(20) << lenders[i]->getPortfolio()->getAmount() << std::endl;
+                  << std::setw(30) << lenders[i]->getPortfolio()->getAmount() << std::endl;
     }
 }
 
@@ -80,7 +82,6 @@ void getUserRepaymentInput(float repayments[][2], int &numRepayments, Borrower* 
         std::cout << "Enter facility index: ";
         std::cin >> indexFacility;
         paidAmount += amount;
-        std::cout << "Sum cumulé :" <<paidAmount << std::endl;
         Part* part = borrower->repay(deal, agent, amount, indexFacility);
         int facilityIndex = part ? part->getIdxFacility() : 0; 
 
