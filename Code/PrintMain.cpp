@@ -77,11 +77,19 @@ void getUserRepaymentInput(float repayments[][2], int &numRepayments, Borrower* 
     while (std::fabs(paidAmount - sumNeededToBeRepaid) > tolerance ) {
         double amount;
         int indexFacility;
+        std::cout << "Amount needed to be repaid : " << sumNeededToBeRepaid - paidAmount << std::endl;
         std::cout << "Enter repayment amount: ";
         std::cin >> amount;
+        while (amount > (sumNeededToBeRepaid - paidAmount)) {
+            std::cout << "The entered amount exceeds the remaining amount to be repaid. Please enter a valid repayment amount: ";
+            std::cin >> amount;
+        }
+        
         std::cout << "Enter facility index: ";
         std::cin >> indexFacility;
         paidAmount += amount;
+        
+
         Part* part = borrower->repay(deal, agent, amount, indexFacility);
         int facilityIndex = part ? part->getIdxFacility() : 0; 
 
