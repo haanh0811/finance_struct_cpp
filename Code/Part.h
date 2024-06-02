@@ -9,9 +9,11 @@
 class Part {
 private:
     double repaid;
+    int idxFacility;
 public:
-    Part(double d);
+    Part(double d,int idxFacility);
     double getRepaid();
+    int getIdxFacility();
 };
 
 

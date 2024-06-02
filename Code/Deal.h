@@ -36,6 +36,7 @@ public:
     std::string getBorrower();
     Lender** getPool();
     Facility** getFacilities();
+    int getNumberOfFacilities();
 
 
     void setFinContrat(int fin);

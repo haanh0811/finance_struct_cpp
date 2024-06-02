@@ -4,10 +4,15 @@
 
 #include "Part.h"
 
-Part::Part(double d) {
+Part::Part(double d,int i) {
     repaid = d;
+    idxFacility = i;
 }
 
 double Part::getRepaid() {
     return repaid;
+}
+
+int Part::getIdxFacility(){
+    return idxFacility;
 }
