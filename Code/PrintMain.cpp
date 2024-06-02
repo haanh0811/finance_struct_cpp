@@ -2,6 +2,9 @@
 #include <iomanip>
 #include <cmath>
 #include "PrintMain.h"
+#include <string>
+#include <sstream>
+#include <limits>
 
 double printFacilityTable(Deal* deal) {
     std::cout << std::left << std::setw(10) << "Facility" 
@@ -71,22 +74,60 @@ void printLenderPortfolios(Agent *a,Lender* lenders[], int size) {
     }
 }
 
+bool isValidNumber(const std::string& str, double& number) {
+    std::istringstream iss(str);
+    iss >> number;
+    return !(iss.fail() || !iss.eof());
+}
+
 void getUserRepaymentInput(float repayments[][2], int &numRepayments, Borrower* borrower, Deal* deal, Agent* agent, double sumNeededToBeRepaid) {
     double paidAmount = 0;
     double tolerance = 0.0001;
+    
     while (std::fabs(paidAmount - sumNeededToBeRepaid) > tolerance ) {
         double amount;
-        int indexFacility;
+        double indexFacility;
+        std::string input;
         std::cout << "Amount needed to be repaid : " << sumNeededToBeRepaid - paidAmount << std::endl;
         std::cout << "Enter repayment amount: ";
-        std::cin >> amount;
+
+        while (true) {
+            std::cin >> input;
+            if (isValidNumber(input, amount) && amount > 0) {
+                break;
+            } else {
+                std::cout << "Invalid input. Please enter a valid repayment amount: ";
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
+        }
+
+   
         while (amount > (sumNeededToBeRepaid - paidAmount)) {
             std::cout << "The entered amount exceeds the remaining amount to be repaid. Please enter a valid repayment amount: ";
-            std::cin >> amount;
+            while (true) {
+                std::cin >> input;
+                if (isValidNumber(input, amount) && amount > 0) {
+                    break;
+                } else {
+                    std::cout << "Invalid input. Please enter a valid repayment amount: ";
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                }
+            }
         }
-        
+
         std::cout << "Enter facility index: ";
-        std::cin >> indexFacility;
+        while (true) {
+            std::cin >> input;
+            if (isValidNumber(input, indexFacility) && indexFacility >= 0) {
+                break;
+            } else {
+                std::cout << "Invalid input. Please enter a valid facility index: ";
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
+        }
         paidAmount += amount;
         
 
